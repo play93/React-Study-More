@@ -1,16 +1,33 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Child from "./components/Child";
 
 function App() {
-  const [count, setCount] = useState(0);
+  //==========useState
+  //const [count, setCount] = useState(0);
   // const handleCountPlus = () => {
   //   //setCount(count + 1 /*이 안에 함수를 넣어도 됨! () => {} 이렇게!*/);
   //   setCount((현재값) => {
   //     return 현재값 + 1;
   //   });
   // };
+
+  //===========useEffect
+
+  //의존성 배열
+  //이 배열에 값을 넣으며 그 값이 바뀔 때만 useEffect를 실행
+  const [value, setValue] = useState("");
+  const [count, setCount] = useState(0);
+
+  useEffect(
+    () => {
+      console.log("hello useEffect");
+    },
+    [count] /*<=의존성배열*/
+  );
+
   return (
+    //==========useState
     // <div>
     //   {count}
     //   <br />
@@ -30,10 +47,29 @@ function App() {
     //   </button>
     // </div>
 
+    // <div>
+    //   <h1>여기는 부모컴포넌트입니다</h1>
+    //   <span>현재 카운트 : {count}</span>
+    //   <Child setCount={setCount} />
+    // </div>
+    //===========useEffect
     <div>
-      <h1>여기는 부모컴포넌트입니다</h1>
-      <span>현재 카운트 : {count}</span>
-      <Child setCount={setCount} />
+      <h1>useEffect</h1>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+      {count}
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        증가
+      </button>
     </div>
   );
 }
