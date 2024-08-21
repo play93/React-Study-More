@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Child = ({ count, setCount }) => {
+export const ChildComponent = ({ count, setCount }) => {
   return (
     <div>
       <h3>여기는 자식 컴포넌트입니다.</h3>
@@ -16,4 +16,4 @@ export const Child = ({ count, setCount }) => {
     </div>
   );
 };
-export default Child;
+export default ChildComponent;

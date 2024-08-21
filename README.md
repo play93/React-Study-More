@@ -71,3 +71,20 @@ useState는 값이 변경 => 리렌더링 하는 반면, useRef는 어떤 경우
 
 특정 Dom요소에 접근 할 수 있음 => 조작도 가능!
 컴포넌트 밖에 변수를 선언하는것 권장x
+
+<br>
+
+## useContext
+
+자식 컴포넌트 => 자식 컴포넌트 => 자식 컴포넌트 => 자식 컴포넌트=> ... 가 많아지면 prop drilling 현상이 일어남
+이게 너무 깊어지면 prop이 어디서부터 왔는지 파악이 어려워지고 어떤 컴포넌트에서 오류가 생기면 추적이 힘들어져 대처가 늦어짐
+
+contextAPI를 쓰게되면 특정공간에 있는 모든 컴포넌트들에 접근할 수 있음 => 전역 데이터를 관리
+
+- `createContext` : context 생성
+- `useContext` : context를 구독하고 해당 context의 현재 값을 읽음
+- `Provider` : context를 하위 컴포넌트에 전달 [중요!]
+
+만능은 아님!
+
+provider에서 제공한 value가 달라지게 되면 useContext를 사용하고 있는 모든 컴포넌트가 리렌더링됨 => value부분을 신경써야함
