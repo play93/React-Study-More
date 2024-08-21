@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Child from "./components/Child";
 
@@ -14,18 +14,41 @@ function App() {
 
   //===========useEffect
 
-  //의존성 배열
-  //이 배열에 값을 넣으며 그 값이 바뀔 때만 useEffect를 실행
-  const [value, setValue] = useState("");
+  // //의존성 배열
+  // //이 배열에 값을 넣으며 그 값이 바뀔 때만 useEffect를 실행
+  // const [value, setValue] = useState("");
+  // const [count, setCount] = useState(0);
+
+  // useEffect(
+  //   () => {
+  //     console.log("hello useEffect");
+  //   },
+  //   [count] /*<=의존성배열*/
+  // );
+
+  //===========useRef
+  const ref = useRef("초기값");
+  console.log(ref);
+
+  ref.current = "바꾼 값";
+  console.log("current=>", ref);
+
   const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+  const idRef = useRef("");
 
-  useEffect(
-    () => {
-      console.log("hello useEffect");
-    },
-    [count] /*<=의존성배열*/
-  );
+  const plusStateCountButtonHandler = () => {
+    setCount(count + 1);
+  };
 
+  const plusRefCountButtonHandler = () => {
+    countRef.current++;
+  };
+
+  //최초 렌더링 시에만 아이디부분이 포커싱되어야 함
+  useEffect(() => {
+    idRef.current.focus();
+  });
   return (
     //==========useState
     // <div>
@@ -53,23 +76,45 @@ function App() {
     //   <Child setCount={setCount} />
     // </div>
     //===========useEffect
+    // <div>
+    //   <h1>useEffect</h1>
+    //   <input
+    //     type="text"
+    //     value={value}
+    //     onChange={(e) => {
+    //       setValue(e.target.value);
+    //     }}
+    //   />
+    //   {count}
+    //   <button
+    //     onClick={() => {
+    //       setCount(count + 1);
+    //     }}
+    //   >
+    //     증가
+    //   </button>
+    // </div>
+    //===========useRef
     <div>
-      <h1>useEffect</h1>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-      {count}
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        증가
-      </button>
+      <h1>useRef vs useState</h1>
+      <div>
+        state영역 입니다. {count}
+        <br />
+        <button onClick={plusStateCountButtonHandler}>state 증가</button>
+      </div>
+      <div>
+        ref영역 입니다. {countRef.current}
+        <br />
+        <button onClick={plusRefCountButtonHandler}>ref 증가</button>
+      </div>
+      <br />
+      <br />
+      <div>
+        아이디 : <input type="text " ref={idRef} />
+      </div>
+      <div>
+        비밀번호 : <input type="password " />
+      </div>
     </div>
   );
 }
